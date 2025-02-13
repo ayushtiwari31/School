@@ -1,8 +1,7 @@
-import React ,{useState}from 'react';
-import { Carousel } from "@material-tailwind/react";
-import { Typography } from "@material-tailwind/react";
-
+import React,{ useRef, useState } from "react";
 import {
+    Carousel ,
+    Typography,
     Navbar,
     Collapse,
     Button,
@@ -13,6 +12,15 @@ import {
     MenuHandler,
     MenuList,
     MenuItem,
+    Dialog,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Input,
+  Checkbox,
+  Select,
+  Option
   } from "@material-tailwind/react";
   import {
     ChevronDownIcon,
@@ -192,11 +200,10 @@ function NavListMenu() {
 
 function Home() {
 
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [dropdownOpen, setDropdownOpen] = useState(false);
-//   const [subDropdownOpen, setSubDropdownOpen] = useState(false);
-
 const [openNav, setOpenNav] = useState(false);
+const [open, setOpen] = React.useState(false);
+const handleOpen = () => setOpen((cur) => !cur);
+
 React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -204,6 +211,8 @@ React.useEffect(() => {
     );
   }, []);
 
+
+  
   return (
   <>
 
@@ -222,7 +231,7 @@ React.useEffect(() => {
         </div>
         <div className="hidden gap-2 lg:flex">
           <Button size="sm">Get Started</Button>
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handleOpen}>
             Log In
           </Button>
         </div>
@@ -244,7 +253,7 @@ React.useEffect(() => {
           <Button size="sm" fullWidth>
             Get Started
           </Button>
-          <Button variant="outlined" size="sm" fullWidth>
+          <Button variant="outlined" size="sm" fullWidth onClick={handleOpen}>
             Log In
           </Button>
         </div>
@@ -252,13 +261,79 @@ React.useEffect(() => {
     </Navbar>
 
 
+    <Dialog
+        size="xl"
+        open={open}
+        handler={handleOpen}
+        className="bg-transparent shadow-none "
+      >
+
+        
+        <Card className="mx-auto w-full max-w-[132rem] flex flex-row">
+
+         {/* Left Side - Image (Hidden on Mobile) */}
+        <div className="hidden md:flex w-2/3 bg-blue-gray-50  items-center justify-center p-4 relative">
+          <img  className="h-96 w-full rounded-lg object-cover object-center"
+      src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80" />
+
+        {/* Text Overlay */}
+    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-5 ">
+      <Typography variant="h4" color="white" className="text-center font-bold">
+        Welcome to Our Platform
+      </Typography>
+    </div>
+        </div>
+
+        <div className="w-full md:w-1/3">
+          <CardBody className="flex flex-col gap-4">
+            <Typography variant="h4" color="blue-gray">
+              Sign In
+            </Typography>
+            <Typography
+              className="mb-3 font-normal"
+              variant="paragraph"
+              color="gray"
+            >
+              Enter your email and password to Sign In.
+            </Typography>
+            <Typography className="-mb-2" variant="h6">
+              Your Email
+            </Typography>
+            <Input label="Email" size="lg" />
+            <Typography className="-mb-2" variant="h6">
+              Your Password
+            </Typography>
+            <Input label="Password" size="lg" />
+            <Typography className="-mb-2" variant="h6">
+              Financial Year
+            </Typography>
+            <Select label="Select Financial Year">
+              <Option value="2023-2024">2023-2024</Option>
+              <Option value="2024-2025">2024-2025</Option>
+              <Option value="2025-2026">2025-2026</Option>
+            </Select>
+          </CardBody>
+
+          <CardFooter className="pt-0">
+            <Button variant="gradient" onClick={handleOpen} fullWidth>
+              Sign In
+            </Button>
+            <Typography  onClick={handleOpen} variant="small" className="mt-4 flex justify-center ml-1 font-bold" color="blue-gray">
+              Forgot Password ?
+            </Typography>
+          </CardFooter>
+        </div>
+        </Card>
+      </Dialog>
 
 
 
 
 
 
-    <Carousel className='h-[400px]'>
+
+
+    <Carousel className='h-[400px]' loop draggable autoplay autoplayDelay={2000}    >
       <img
         src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
         alt="image 1"
@@ -277,6 +352,11 @@ React.useEffect(() => {
       <img
         src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
         alt="image 1"
+        className="h-full w-full object-cover"
+      />
+      <img
+        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+        alt="image 2"
         className="h-full w-full object-cover"
       />
     </Carousel>
